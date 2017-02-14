@@ -435,16 +435,19 @@ var BrowserMenu =
 
     overlayFirefoxMenu: function(doc)
     {
-        // Firefox page context menu
-        $menupopupOverlay(doc, $(doc, "contentAreaContextMenu"), [
-            $menuseparator(doc),
-            $menuitem(doc, {
-                id: "menu_firebug_firebugInspect",
-                label: "firebug.InspectElementWithFirebug",
-                command: "cmd_firebug_inspect",
-                "class": "menuitem-iconic"
-            })
-        ]);
+        // Firefox page context menu (only in non-multi-process mode, to avoid confusion).
+        if (!this.browserOverlay.isMultiprocessEnabled())
+        {
+            $menupopupOverlay(doc, $(doc, "contentAreaContextMenu"), [
+                $menuseparator(doc),
+                $menuitem(doc, {
+                    id: "menu_firebug_firebugInspect",
+                    label: "firebug.InspectElementWithFirebug",
+                    command: "cmd_firebug_inspect",
+                    "class": "menuitem-iconic"
+                })
+            ]);
+        }
 
         // Firefox view menu
         $menupopupOverlay(doc, $(doc, "menu_viewPopup"),
